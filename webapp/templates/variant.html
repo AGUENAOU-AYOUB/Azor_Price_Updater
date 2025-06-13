@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Variant Price Update</h3>
+<button id="start" class="btn btn-brand">Run Update</button>
+<pre id="log" class="mt-3 bg-light p-2" style="height:300px;overflow:auto;"></pre>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.getElementById('start').onclick = function(){
+    const log = document.getElementById('log');
+    log.textContent='';
+    const es = new EventSource('/stream/variant');
+    es.onmessage = e => {
+      if(e.data === '--done--') es.close();
+      else log.textContent += e.data + '\n';
+      log.scrollTop = log.scrollHeight;
+    };
+  };
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+body { background-color: #f8f9fa; }
+.navbar { background-color: #343a40; }
+.navbar-brand, .nav-link, .navbar-text { color: #fff !important; }
+.btn-brand { background-color: #008cba; color: #fff; }
+.btn-brand:hover { background-color: #007bb5; color: #fff; }
+pre#log { background-color: #f5f5f5; }

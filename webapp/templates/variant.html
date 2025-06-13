@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4 shadow-sm">
+  <h3 class="mb-3">Variant Price Update</h3>
+  <button id="start" class="btn btn-brand mb-3">Run Update</button>
+  <pre id="log" class="p-2" style="height:300px;overflow:auto;"></pre>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.getElementById('start').onclick = function(){
+    const log = document.getElementById('log');
+    log.textContent='';
+    const es = new EventSource('/stream/variant');
+    es.onmessage = e => {
+      if(e.data === '--done--') es.close();
+      else log.textContent += e.data + '\n';
+      log.scrollTop = log.scrollHeight;
+    };
+  };
+</script>
+{% endblock %}

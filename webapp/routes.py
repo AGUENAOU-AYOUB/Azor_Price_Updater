@@ -44,12 +44,12 @@ def variant_updater():
                 try:
                     updated[cat][chain] = float(val)
                 except ValueError:
-                    flash(f"Invalid value for {chain}")
+                    flash(f"Invalid value for {chain}", 'error')
                     return render_template('variant.html', surcharges=surcharges)
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(updated, f, indent=2)
         surcharges = updated
-        flash('Surcharges saved.')
+        flash('Surcharges saved.', 'success')
 
     return render_template('variant.html', surcharges=surcharges)
 

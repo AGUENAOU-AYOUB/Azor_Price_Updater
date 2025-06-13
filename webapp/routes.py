@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, Response
-import subprocess, os
+from flask import Blueprint, render_template, request, session, redirect, url_for, Response, flash
+import subprocess, os, json
 
 main_bp = Blueprint('main', __name__)
 
@@ -28,10 +28,30 @@ def home():
 def percentage_updater():
     return render_template('percentage.html')
 
-@main_bp.route('/variant-updater')
+@main_bp.route('/variant-updater', methods=['GET', 'POST'])
 @login_required
 def variant_updater():
-    return render_template('variant.html')
+    file_path = os.path.join('tempo solution', 'variant_prices.json')
+    with open(file_path, encoding='utf-8') as f:
+        surcharges = json.load(f)
+
+    if request.method == 'POST':
+        updated = {cat: {} for cat in surcharges}
+        for cat, chains in surcharges.items():
+            for chain in chains:
+                key = f"{cat}_{chain.replace(' ', '_')}"
+                val = request.form.get(key, '').strip()
+                try:
+                    updated[cat][chain] = float(val)
+                except ValueError:
+                    flash(f"Invalid value for {chain}")
+                    return render_template('variant.html', surcharges=surcharges)
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(updated, f, indent=2)
+        surcharges = updated
+        flash('Surcharges saved.')
+
+    return render_template('variant.html', surcharges=surcharges)
 
 
 def stream_process(cmd):

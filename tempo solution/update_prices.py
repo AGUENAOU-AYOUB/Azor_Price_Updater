@@ -23,7 +23,7 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-SURCHARGE_FILE = "variant_prices.json"
+SURCHARGE_FILE = os.path.join(os.path.dirname(__file__), "variant_prices.json")
 # ─────────────────────────────────────
 
 

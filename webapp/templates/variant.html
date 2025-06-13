@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Variant Price Update</h3>
-<button id="start" class="btn btn-brand">Run Update</button>
-<pre id="log" class="mt-3 bg-light p-2" style="height:300px;overflow:auto;"></pre>
+<div class="card p-4 shadow-sm">
+  <h3 class="mb-3">Variant Price Update</h3>
+  <button id="start" class="btn btn-brand mb-3">Run Update</button>
+  <pre id="log" class="p-2" style="height:300px;overflow:auto;"></pre>
+</div>
 {% endblock %}
 {% block scripts %}
 <script>

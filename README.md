@@ -23,6 +23,6 @@ This repository contains tools to update Shopify variant prices and now includes
 ## Using the Updaters
 
 - **Percentage Updater** adjusts prices by a percentage and uses `project-root/scripts/update_prices_shopify.py`. Enter the desired percentage and monitor the real-time log while the script runs.
-- **Variant Updater** runs `tempo solution/update_prices.py` which updates prices using predefined surcharges. Click the run button and watch the log.
+- **Variant Updater** runs `tempo solution/update_prices.py`. The page shows all surcharges from `tempo solution/variant_prices.json`. Edit the values for each chain and click **Save Changes** to update the file. Then use the **Run Update** button to apply the prices while the real-time log streams.
 
 The output from each script is streamed live to your browser so you can follow progress.
